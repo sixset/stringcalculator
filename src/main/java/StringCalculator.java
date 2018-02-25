@@ -5,21 +5,25 @@ import static java.lang.Integer.*;
 
 public class StringCalculator {
 
+    public static final String CHARACTER = ",|\n";
+
 
     public int add(String numbers) {
+        return getSum(splitString(numbers));
+    }
+
+    private String[] splitString(String numbers) {
         if (numbers.isEmpty()) {
-            return 0;
-        } else if (numbers.contains(",")) {
-            return getSum(numbers);
+            return new String[0];
         } else {
-            return valueOf(numbers);
+            String[] tabOfNumbers = numbers.split(CHARACTER);
+            return tabOfNumbers;
         }
     }
 
-    private int getSum(String numbers) {
-        String[] tabOfNumbers = numbers.split(",");
+    private int getSum(String[] numbers) {
         int sum = 0;
-        for (String number : tabOfNumbers) {
+        for (String number : numbers) {
             sum += valueOf(number);
         }
         return sum;

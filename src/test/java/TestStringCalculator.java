@@ -29,8 +29,12 @@ public class TestStringCalculator {
     public void multipleNumbersShouldReturnSum() {
         Assert.assertEquals(9, stringCalculator.add("3,5,1"));
     }
+    @Test
+    public void sumNumberbelowLine() {
+        Assert.assertEquals(6, stringCalculator.add("3\n3"));
+    }
 
-    
+
 
 
 }
