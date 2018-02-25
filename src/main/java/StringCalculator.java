@@ -9,17 +9,36 @@ public class StringCalculator {
     private String CHARACTER = ",|\n";
 
     public int add(String numbers) {
-        if (numbers.startsWith("//")) {
-            numbers = getNumbers(numbers);
-        }
-        return getSum(splitString(numbers));
+        numbers = checkDelimeter(numbers);
+        String[] tabOfNumber = removeBiggerThousand(splitString(numbers));
+        return getSum(tabOfNumber);
     }
 
-    private String getNumbers(String numbers) {
+    private String checkDelimeter(String numbers) {
+        if (numbers.startsWith("//")) {
+            numbers = getNumberWithSingleCustomDelimiter(numbers);
+        }
+        return numbers;
+    }
+
+    private String[] removeBiggerThousand(String[] numbers) {
+        List<String> numbersWithOutThousand = new ArrayList();
+        for (String number : numbers) {
+            if (valueOf(number) <= 1000) {
+                numbersWithOutThousand.add(number);
+            }
+        }
+        return numbersWithOutThousand.toArray(new String[numbersWithOutThousand.size()]);
+    }
+
+    private String getNumberWithSingleCustomDelimiter(String numbers) {
         int delimiterIndex = numbers.indexOf("//") + 2;
         this.CHARACTER = numbers.substring(delimiterIndex, delimiterIndex + 1);
         numbers = numbers.substring(numbers.indexOf("n") + 1);
+        System.out.println(numbers);
         return numbers;
+
+
     }
 
     private String[] splitString(String numbers) {
@@ -40,7 +59,7 @@ public class StringCalculator {
                 negativeNumbers.add(number);
             }
         }
-        if(negativeNumbers.size()>0){
+        if (negativeNumbers.size() > 0) {
             throw new RuntimeException("Negatives not allowed:" + negativeNumbers.toString());
         }
         return sum;

@@ -48,6 +48,11 @@ public class TestStringCalculator {
         Assert.assertNotNull(exception);
         Assert.assertEquals("Negatives not allowed:[-6, -18]", exception.getMessage());
     }
+    @Test
+    public void numberBiggerThan1000ShuldBeIgnored() {
+        Assert.assertEquals(8, stringCalculator.add("//;n1;4;1001;3"));
+    }
+
 
 }
 
