@@ -25,5 +25,12 @@ public class TestStringCalculator {
         Assert.assertEquals(8, stringCalculator.add("3,5"));
     }
 
+    @Test
+    public void multipleNumbersShouldReturnSum() {
+        Assert.assertEquals(9, stringCalculator.add("3,5,1"));
+    }
+
+    
+
 
 }
