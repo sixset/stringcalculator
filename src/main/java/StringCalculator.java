@@ -5,11 +5,20 @@ import static java.lang.Integer.*;
 
 public class StringCalculator {
 
-    public static final String CHARACTER = ",|\n";
-
+    private String CHARACTER = ",|\n";
 
     public int add(String numbers) {
+        if (numbers.startsWith("//")){
+            numbers = getNumbers(numbers);
+        }
         return getSum(splitString(numbers));
+    }
+
+    private String getNumbers(String numbers) {
+        int delimiterIndex = numbers.indexOf("//") + 2;
+        this.CHARACTER = numbers.substring(delimiterIndex, delimiterIndex + 1);
+        numbers = numbers.substring(numbers.indexOf("n") + 1);
+        return numbers;
     }
 
     private String[] splitString(String numbers) {

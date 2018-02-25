@@ -33,6 +33,11 @@ public class TestStringCalculator {
     public void sumNumberbelowLine() {
         Assert.assertEquals(6, stringCalculator.add("3\n3"));
     }
+    @Test
+    public void sds() {
+        Assert.assertEquals(8, stringCalculator.add("//;n1;4;3"));
+    }
+
 
 
 
