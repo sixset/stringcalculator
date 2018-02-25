@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,7 @@ public class StringCalculator {
     private String CHARACTER = ",|\n";
 
     public int add(String numbers) {
-        if (numbers.startsWith("//")){
+        if (numbers.startsWith("//")) {
             numbers = getNumbers(numbers);
         }
         return getSum(splitString(numbers));
@@ -32,8 +33,15 @@ public class StringCalculator {
 
     private int getSum(String[] numbers) {
         int sum = 0;
+        List negativeNumbers = new ArrayList();
         for (String number : numbers) {
             sum += valueOf(number);
+            if (valueOf(number) < 0) {
+                negativeNumbers.add(number);
+            }
+        }
+        if(negativeNumbers.size()>0){
+            throw new RuntimeException("Negatives not allowed:" + negativeNumbers.toString());
         }
         return sum;
     }

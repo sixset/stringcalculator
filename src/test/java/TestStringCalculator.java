@@ -34,12 +34,25 @@ public class TestStringCalculator {
         Assert.assertEquals(6, stringCalculator.add("3\n3"));
     }
     @Test
-    public void sds() {
+    public void sumNumberWithCustomSeparator() {
         Assert.assertEquals(8, stringCalculator.add("//;n1;4;3"));
     }
-
-
-
-
+    @Test
+    public void inNegativeNumberShuldThrowException() {
+        RuntimeException exception = null;
+        try {
+            stringCalculator.add("3,-6,15,-18,46,33");
+        } catch (RuntimeException e) {
+            exception = e;
+        }
+        Assert.assertNotNull(exception);
+        Assert.assertEquals("Negatives not allowed:[-6, -18]", exception.getMessage());
+    }
 
 }
+
+
+
+
+
+
