@@ -52,10 +52,7 @@ public class TestStringCalculator {
     public void numberBiggerThan1000ShuldBeIgnored() {
         Assert.assertEquals(8, stringCalculator.add("//;\n1;4;1001;3"));
     }
-
-
-
-
+    
 }
 
 

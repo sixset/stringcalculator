@@ -1,13 +1,13 @@
 
 import java.util.Arrays;
 import java.util.List;
+
 import static java.util.stream.Collectors.joining;
 
 public class StringCalculator {
 
     private String DELIMETER = ",|\n";
     private static final int MAXNUMBERS = 1000;
-
 
     public int add(String numbers) {
         numbers = checkDelimeter(numbers);
@@ -16,8 +16,8 @@ public class StringCalculator {
         return sumArray(tabOfNumber);
     }
 
-    private void checkForNegativeNumbers(String [] numbersTab) {
-        List <String> numbersList = Arrays.asList(numbersTab);
+    private void checkForNegativeNumbers(String[] numbersTab) {
+        List<String> numbersList = Arrays.asList(numbersTab);
         String negatives = numbersList.stream()
                 .filter(s -> s.contains("-"))
                 .collect(joining(","));
@@ -49,10 +49,11 @@ public class StringCalculator {
     }
 
     private int sumArray(String[] arrayNumbers) {
-        List <String> numbersList = Arrays.asList(arrayNumbers);
+        List<String> numbersList = Arrays.asList(arrayNumbers);
         return numbersList.stream()
                 .filter(s -> Integer.parseInt(s) <= MAXNUMBERS)
                 .mapToInt(Integer::parseInt)
                 .sum();
     }
+
 }
