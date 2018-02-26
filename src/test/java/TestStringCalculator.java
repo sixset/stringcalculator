@@ -35,7 +35,7 @@ public class TestStringCalculator {
     }
     @Test
     public void sumNumberWithCustomSeparator() {
-        Assert.assertEquals(8, stringCalculator.add("//;n1;4;3"));
+        Assert.assertEquals(8, stringCalculator.add("//;\n1;4;3"));
     }
     @Test
     public void inNegativeNumberShuldThrowException() {
@@ -46,12 +46,14 @@ public class TestStringCalculator {
             exception = e;
         }
         Assert.assertNotNull(exception);
-        Assert.assertEquals("Negatives not allowed:[-6, -18]", exception.getMessage());
+        Assert.assertEquals("Negatives not allowed: -6,-18", exception.getMessage());
     }
     @Test
     public void numberBiggerThan1000ShuldBeIgnored() {
-        Assert.assertEquals(8, stringCalculator.add("//;n1;4;1001;3"));
+        Assert.assertEquals(8, stringCalculator.add("//;\n1;4;1001;3"));
     }
+
+
 
 
 }

@@ -1,17 +1,29 @@
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
-import static java.lang.Integer.*;
+import static java.util.stream.Collectors.joining;
 
 public class StringCalculator {
 
-    private String CHARACTER = ",|\n";
+    private String DELIMETER = ",|\n";
+    private static final int MAXNUMBERS = 1000;
+
 
     public int add(String numbers) {
         numbers = checkDelimeter(numbers);
-        String[] tabOfNumber = removeBiggerThousand(splitString(numbers));
-        return getSum(tabOfNumber);
+        String[] tabOfNumber = splitString(numbers);
+        checkForNegativeNumbers(tabOfNumber);
+        return sumArray(tabOfNumber);
+    }
+
+    private void checkForNegativeNumbers(String [] numbersTab) {
+        List <String> numbersList = Arrays.asList(numbersTab);
+        String negatives = numbersList.stream()
+                .filter(s -> s.contains("-"))
+                .collect(joining(","));
+        if (!negatives.isEmpty()) {
+            throw new IllegalArgumentException("Negatives not allowed: " + negatives);
+        }
     }
 
     private String checkDelimeter(String numbers) {
@@ -21,47 +33,26 @@ public class StringCalculator {
         return numbers;
     }
 
-    private String[] removeBiggerThousand(String[] numbers) {
-        List<String> numbersWithOutThousand = new ArrayList();
-        for (String number : numbers) {
-            if (valueOf(number) <= 1000) {
-                numbersWithOutThousand.add(number);
-            }
-        }
-        return numbersWithOutThousand.toArray(new String[numbersWithOutThousand.size()]);
-    }
-
     private String getNumberWithSingleCustomDelimiter(String numbers) {
         int delimiterIndex = numbers.indexOf("//") + 2;
-        this.CHARACTER = numbers.substring(delimiterIndex, delimiterIndex + 1);
-        numbers = numbers.substring(numbers.indexOf("n") + 1);
-        System.out.println(numbers);
+        this.DELIMETER = numbers.substring(delimiterIndex, delimiterIndex + 1);
+        numbers = numbers.substring(numbers.indexOf("\n") + 1);
         return numbers;
-
-
     }
 
     private String[] splitString(String numbers) {
         if (numbers.isEmpty()) {
             return new String[0];
         } else {
-            String[] tabOfNumbers = numbers.split(CHARACTER);
-            return tabOfNumbers;
+            return numbers.split(DELIMETER);
         }
     }
 
-    private int getSum(String[] numbers) {
-        int sum = 0;
-        List negativeNumbers = new ArrayList();
-        for (String number : numbers) {
-            sum += valueOf(number);
-            if (valueOf(number) < 0) {
-                negativeNumbers.add(number);
-            }
-        }
-        if (negativeNumbers.size() > 0) {
-            throw new RuntimeException("Negatives not allowed:" + negativeNumbers.toString());
-        }
-        return sum;
+    private int sumArray(String[] arrayNumbers) {
+        List <String> numbersList = Arrays.asList(arrayNumbers);
+        return numbersList.stream()
+                .filter(s -> Integer.parseInt(s) <= MAXNUMBERS)
+                .mapToInt(Integer::parseInt)
+                .sum();
     }
 }
